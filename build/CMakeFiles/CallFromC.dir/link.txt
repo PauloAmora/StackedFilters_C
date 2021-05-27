@@ -1,0 +1,1 @@
+/bin/x86_64-linux-gnu-g++-9   -O3 -Wall -Wextra -g  -rdynamic CMakeFiles/CallFromC.dir/CallFromC.c.o  -o CallFromC  ../libs/libCallFromC.a -lm 

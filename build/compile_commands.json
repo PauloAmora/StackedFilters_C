@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/mnt/c/Users/Paulo/Desktop/pasta/sf_library_c/build",
+  "command": "/bin/x86_64-linux-gnu-gcc-9  -I/mnt/c/Users/Paulo/Desktop/pasta/sf_library_c/include  -g   -o CMakeFiles/CallFromC.dir/CallFromC.c.o   -c /mnt/c/Users/Paulo/Desktop/pasta/sf_library_c/CallFromC.c",
+  "file": "/mnt/c/Users/Paulo/Desktop/pasta/sf_library_c/CallFromC.c"
+}
+]
