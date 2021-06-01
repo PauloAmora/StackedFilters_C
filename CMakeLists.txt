@@ -5,6 +5,7 @@ set(CMAKE_CXX_FLAGS " -O3 -Wall -Wextra")
 
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 #Bring the headers, such as Student.h into the project
 include_directories(
