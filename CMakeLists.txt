@@ -14,8 +14,8 @@ include_directories(
 
 #However, the file(GLOB...) allows for wildcard additions:
 file(GLOB all_SRCS
-#         "${PROJECT_SOURCE_DIR}/include/QuotientFilter/*.cpp"
-#        "${PROJECT_SOURCE_DIR}/include/CallFromC/*.cpp"
+        "${PROJECT_SOURCE_DIR}/include/QuotientFilter/*.cpp"
+        "${PROJECT_SOURCE_DIR}/include/CallFromC/*.cpp"
         "${PROJECT_SOURCE_DIR}/include/*.hpp"
          )
 

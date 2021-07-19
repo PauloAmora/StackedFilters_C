@@ -30,6 +30,8 @@ public:
 
     void InsertElement(const element_type element);
 
+    void DeleteElement(const element_type element);
+
     double GetLoadFactor();
 
     static size_t SizeFunctionImplementation(double fpr,
@@ -81,6 +83,12 @@ void BloomFilterLayer<element_type>::InsertElement(const element_type element) {
     for (unsigned int i = 0; i < num_hashes_; i++) {
         filter_[getNthHash(hash1, hash2, i)] = true;
     }
+}
+
+_GLIBCXX17_INLINE
+template<typename element_type>
+void BloomFilterLayer<element_type>::DeleteElement(const element_type element) {
+
 }
 
 _GLIBCXX17_INLINE

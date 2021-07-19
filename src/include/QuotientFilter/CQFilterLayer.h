@@ -37,6 +37,10 @@ public:
     _GLIBCXX17_INLINE
     void InsertElement(const element_type element) override;
 
+    _GLIBCXX17_INLINE
+    void DeleteElement(const element_type element) override;
+
+
     double GetLoadFactor();
 
     static size_t SizeFunctionImplementation(double fpr,
@@ -81,6 +85,19 @@ void CQFilterLayer<element_type>::InsertElement(const element_type element) {
         printf("CQF Ran Out Of Space!\n");
     }
 }
+
+_GLIBCXX17_INLINE
+template<typename element_type>
+void CQFilterLayer<element_type>::DeleteElement(const element_type element) {
+    this->num_elements_--;
+    //uint64 hash = getHash(element);
+    int ret = qf_remove(&filter_, element.value, 0, 1, QF_NO_LOCK);
+    if (ret == -1) {
+        printf("CQF Ran Out Of Space!\n");
+    }
+}
+
+
 
 template<typename element_type>
 uint64 CQFilterLayer<element_type>::getHash(element_type x) {

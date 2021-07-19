@@ -53,6 +53,10 @@ public:
     _GLIBCXX17_INLINE
     void InsertElement(element_type element) override;
 
+
+    _GLIBCXX17_INLINE
+    void DeleteElement(element_type element) override;
+
     double GetLoadFactor();
 
     static size_t SizeFunctionImplementation(double fpr,
@@ -155,6 +159,12 @@ void CuckooFilterLayer<element_type>::InsertElement(const element_type element) 
     if (ret == cuckoofilter::Status::NotEnoughSpace) {
         printf("CQF Ran Out Of Space!\n");
     }
+}
+
+_GLIBCXX17_INLINE
+template<typename element_type>
+void CuckooFilterLayer<element_type>::DeleteElement(const element_type element) {
+
 }
 
 template<typename element_type>

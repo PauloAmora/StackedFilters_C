@@ -7,18 +7,18 @@ int main()
 {
    printf("\n == EXPERIMENT 2 - Build Filter ======\n");
 
-   static int positives[1000000]; 
-   static int negatives[100000000];
+   static int positives[1000]; 
+   static int negatives[10000];
 
    int i = 0;
 
-    for(i=0;i<1000000;i++)
+    for(i=0;i<1000;i++)
     {
           positives[i] = i+1;
        
     }
     int j = 0;
-    for(j=0;j<100000000;j++)
+    for(j=0;j<10000;j++)
     {
           negatives[j] = j+i+1;
        
@@ -26,18 +26,21 @@ int main()
 
 
 
-   static double cdf[1000000];
+   static double cdf[1000];
    double sum = 0;
-   for (int i = 0; i < 1000000; i++)
+   for (int i = 0; i < 1000; i++)
    {
-      sum += 1. / 1000000;
+      sum += 1. / 1000;
       cdf[i] = (sum);
    }
 
-   const size_t total_size = 1000000*10;
+   const size_t total_size = 1000*10;
 
-   sFilter filter = sfilter_new_parameters(total_size, positives, negatives, cdf);
-   int result = filter_LookupElement(filter, 19);
+
+        
+    
+   sFilter filter = sfilter_new_parameters(total_size, positives, (sizeof positives / sizeof positives[0]), negatives, (sizeof negatives / sizeof negatives[0]),cdf,(sizeof cdf / sizeof cdf[0]));
+   int result = filter_LookupElement(filter, 10009);
    printf("Elemento 19 encontrado? 1:sim, 0: nao = %d gabarito: 1\n", result);
 
 

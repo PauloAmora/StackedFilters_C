@@ -21,7 +21,7 @@ public:
 
     virtual bool LookupElement(element_type element) = 0;
 
-    virtual void DeleteElement(element_type element) {};
+    virtual void DeleteElement(element_type element) = 0;
 
     static size_t SizeFunction(double fpr, size_t num_expected_elements) {
         return T<element_type>::SizeFunctionImplementation(fpr,

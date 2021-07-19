@@ -40,8 +40,8 @@ file(GLOB all_SRCS
 #add_executable(CallFromC "${PROJECT_SOURCE_DIR}/Main/CallFromC.c" ${all_SRCS})
 
 
-#add_library(CallFromC SHARED ${all_SRCS} )
-add_executable(CallFromC "${PROJECT_SOURCE_DIR}/Main/CallFromC.c" "${PROJECT_SOURCE_DIR}/include/CallFromC/codecpp.cpp" "${PROJECT_SOURCE_DIR}/include/CallFromC/codecpp.hpp" ${all_SRCS})
+add_library(CallFromC SHARED ${all_SRCS} )
+#add_executable(CallFromC "${PROJECT_SOURCE_DIR}/Main/CallFromC.c" "${PROJECT_SOURCE_DIR}/include/CallFromC/codecpp.cpp" "${PROJECT_SOURCE_DIR}/include/CallFromC/codecpp.hpp" ${all_SRCS})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")

@@ -42,18 +42,33 @@ StackedFilterWrapper::StackedFilterWrapper()
  StackedFilterWrapper::StackedFilterWrapper(
                    const size_t total_size,
                    const int* pos,
-                   const int* neg,
-                   const double* cdf)
+                   const int pos_size,
+                   const int* neg, 
+                   const int neg_size,
+                   const double* cdf,
+                   const int cdf_size)
  {
-     std::vector<int> pos_int_vec(pos, pos + sizeof(pos) / sizeof pos[0]);
-     std::vector<int> neg_int_vec(neg, neg + sizeof(neg) / sizeof neg[0]);
-     std::vector<double> cdf_dob_vec(cdf, cdf + sizeof(cdf) / sizeof cdf[0]);
+
+
+     std::vector<int> pos_int_vec(pos, pos + pos_size);
+     std::vector<int> neg_int_vec(neg, neg + neg_size);
+     std::vector<double> cdf_dob_vec(cdf, cdf + cdf_size);
 
      std::vector<IntElement> pos_ele_vec(pos_int_vec.begin(), pos_int_vec.end());
      std::vector<IntElement> neg_ele_vec(neg_int_vec.begin(), neg_int_vec.end());
 
+    for (int i = 0; i < pos_int_vec.size(); i++){
+     cout << pos_int_vec.at(i) << " ";   
+    }
+     cout << "pos ele vec size: " << pos_ele_vec.size() << endl;
+     cout << "pos int vec size: " << pos_int_vec.size() << endl;
+     cout << "neg_int_vec size: " << neg_int_vec.size() << endl;
+     cout << "entering filter create"<< endl;
      
      filter = new StackedFilter<CQFilterLayer, IntElement>(total_size, pos_ele_vec, neg_ele_vec, cdf_dob_vec);
+
+     cout << "leaving filter create"<< endl;
+
  }
 
 bool StackedFilterWrapper::Lookup(int x)
@@ -66,6 +81,12 @@ void StackedFilterWrapper::InsertPositiveElement(int x){
 
 }
 
+
+
+void StackedFilterWrapper::DeleteElement(int x){
+    return filter->DeleteElement(x);
+
+}
 
 
 //---------- C-Interface for class Runstat ---------------------//
@@ -85,11 +106,16 @@ int filter_LookupElement(sFilter self, const int element)
     return 0;
 }
 
-sFilter sfilter_new_parameters(size_t total_size, int* pos, int* neg, double* cdf){
-    return new (std::nothrow) StackedFilterWrapper(total_size, pos, neg, cdf);
+sFilter sfilter_new_parameters(size_t total_size, int* pos, int pos_size, int* neg, int neg_size, double* cdf, int cdf_size){
+    return new (std::nothrow) StackedFilterWrapper(total_size, pos, pos_size, neg, neg_size, cdf, cdf_size);
 }
 
 void filter_InsertElement(sFilter self, const int element){
     auto p = reinterpret_cast<StackedFilterWrapper *>(self);
     p->InsertPositiveElement(element);
+}
+
+void filter_DeleteElement(sFilter self, const int element){
+    auto p = reinterpret_cast<StackedFilterWrapper *>(self);
+    p->DeleteElement(element);
 }

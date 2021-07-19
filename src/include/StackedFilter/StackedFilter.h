@@ -267,7 +267,17 @@ void StackedFilter<BaseAMQ, element_type>::InsertPositiveElement(
 }
 
 template<template<typename> class BaseAMQ, typename element_type>
-void StackedFilter<BaseAMQ, element_type>::DeleteElement(element_type element) {}
+void StackedFilter<BaseAMQ, element_type>::DeleteElement(element_type element) {
+    layer_array_[0].DeleteElement(element);
+    for (int i = 0; i < (num_layers_ - 1) / 2; i++) {
+        if (layer_array_[2 * i + 1].LookupElement(element) == true) {
+            layer_array_[2 * i + 2].DeleteElement(element);
+        } else {
+            return;
+        }
+    }
+
+}
 
 
 // Optimization

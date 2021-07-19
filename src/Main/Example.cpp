@@ -43,7 +43,9 @@ int main(int arg_num, char **args) {
     std::vector<IntElement> negatives(ints.begin() + kNumPositives, ints.end());
     std::vector<double> cdf = uniform_cdf(kNumNegatives);
 
-    StackedFilter<BloomFilterLayer, IntElement> filter(kBitsPerElement * positives.size(), positives, negatives, cdf);
+    
+
+    StackedFilter<CuckooFilterLayer, IntElement> filter(kBitsPerElement * positives.size(), positives, negatives, cdf);
 
     double false_positives = 0;
     for(const auto& neg : negatives){
