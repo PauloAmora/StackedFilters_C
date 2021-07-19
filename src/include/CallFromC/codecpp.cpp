@@ -36,16 +36,24 @@ StackedFilterWrapper::StackedFilterWrapper()
     }
 
 
-    filter = new StackedFilter<BloomFilterLayer, IntElement>(kBitsPerElement * positives.size(), positives, negatives, cdf);
+    filter = new StackedFilter<CQFilterLayer, IntElement>(kBitsPerElement * positives.size(), positives, negatives, cdf);
 }
 
  StackedFilterWrapper::StackedFilterWrapper(
                    const size_t total_size,
-                   const std::vector<IntElement> &positives,
-                   const std::vector<IntElement> &negatives,
-                   const std::vector<double> &cdf)
+                   const int* pos,
+                   const int* neg,
+                   const double* cdf)
  {
-     filter = new StackedFilter<BloomFilterLayer, IntElement>(total_size, positives, negatives, cdf);
+     std::vector<int> pos_int_vec(pos, pos + sizeof(pos) / sizeof pos[0]);
+     std::vector<int> neg_int_vec(neg, neg + sizeof(neg) / sizeof neg[0]);
+     std::vector<double> cdf_dob_vec(cdf, cdf + sizeof(cdf) / sizeof cdf[0]);
+
+     std::vector<IntElement> pos_ele_vec(pos_int_vec.begin(), pos_int_vec.end());
+     std::vector<IntElement> neg_ele_vec(neg_int_vec.begin(), neg_int_vec.end());
+
+     
+     filter = new StackedFilter<CQFilterLayer, IntElement>(total_size, pos_ele_vec, neg_ele_vec, cdf_dob_vec);
  }
 
 bool StackedFilterWrapper::Lookup(int x)
@@ -53,13 +61,12 @@ bool StackedFilterWrapper::Lookup(int x)
     return filter->LookupElement(x);
 }
 
-std::vector<IntElement> generate_ints(uint64 num_elements)
-{
+void StackedFilterWrapper::InsertPositiveElement(int x){
+    return filter->InsertPositiveElement(x);
+
 }
 
-std::vector<double> uniform_cdf(uint64_t num_elements)
-{
-}
+
 
 //---------- C-Interface for class Runstat ---------------------//
 
@@ -76,4 +83,13 @@ int filter_LookupElement(sFilter self, const int element)
         return 1;
     }
     return 0;
+}
+
+sFilter sfilter_new_parameters(size_t total_size, int* pos, int* neg, double* cdf){
+    return new (std::nothrow) StackedFilterWrapper(total_size, pos, neg, cdf);
+}
+
+void filter_InsertElement(sFilter self, const int element){
+    auto p = reinterpret_cast<StackedFilterWrapper *>(self);
+    p->InsertPositiveElement(element);
 }

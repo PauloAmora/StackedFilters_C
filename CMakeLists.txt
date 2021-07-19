@@ -39,5 +39,5 @@ file(GLOB all_SRCS
 
 add_executable(CallFromC "${PROJECT_SOURCE_DIR}/CallFromC.c" ${all_SRCS})
 
-target_link_libraries(CallFromC "${PROJECT_SOURCE_DIR}/libs/libCallFromC.a" m)
-set_target_properties(CallFromC PROPERTIES LINKER_LANGUAGE CXX)
+target_link_libraries(CallFromC "${PROJECT_SOURCE_DIR}/libs/libCallFromC.so" m)
+#set_target_properties(CallFromC PROPERTIES LINKER_LANGUAGE CXX)
