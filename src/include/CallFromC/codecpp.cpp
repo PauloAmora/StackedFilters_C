@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-//----------- Implementation of class RunningStatics -----------//
+//----------- Implementation of C++ class -----------//
 
 StackedFilterWrapper::StackedFilterWrapper()
 {
@@ -11,7 +11,6 @@ StackedFilterWrapper::StackedFilterWrapper()
     static constexpr int kNumPositives = 10;
     static constexpr int kNumNegatives = 15;
     int num_elements = kNumPositives + kNumNegatives;
-    //std::vector<IntElement> ints = generate_ints();
     std::uniform_int_distribution<long> distribution(0, 20);
     std::vector<IntElement> int_vec(num_elements);
     for (uint64 i = 0; i < num_elements; i++)
@@ -57,18 +56,10 @@ StackedFilterWrapper::StackedFilterWrapper()
      std::vector<IntElement> pos_ele_vec(pos_int_vec.begin(), pos_int_vec.end());
      std::vector<IntElement> neg_ele_vec(neg_int_vec.begin(), neg_int_vec.end());
 
-    for (int i = 0; i < pos_int_vec.size(); i++){
-     cout << pos_int_vec.at(i) << " ";   
-    }
-     cout << "pos ele vec size: " << pos_ele_vec.size() << endl;
-     cout << "pos int vec size: " << pos_int_vec.size() << endl;
-     cout << "neg_int_vec size: " << neg_int_vec.size() << endl;
-     cout << "entering filter create"<< endl;
      
      filter = new StackedFilter<CQFilterLayer, IntElement>(total_size, pos_ele_vec, neg_ele_vec, cdf_dob_vec);
 
-     cout << "leaving filter create"<< endl;
-
+    
  }
 
 bool StackedFilterWrapper::Lookup(int x)
@@ -89,7 +80,7 @@ void StackedFilterWrapper::DeleteElement(int x){
 }
 
 
-//---------- C-Interface for class Runstat ---------------------//
+//---------- C-Interface ---------------------//
 
 sFilter sfilter_new()
 {
