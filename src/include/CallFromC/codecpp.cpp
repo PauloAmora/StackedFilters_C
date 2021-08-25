@@ -12,7 +12,7 @@ StackedFilterWrapper::StackedFilterWrapper()
     static constexpr int kNumNegatives = 15;
     int num_elements = kNumPositives + kNumNegatives;
     std::uniform_int_distribution<long> distribution(0, 20);
-    std::vector<IntElement> int_vec(num_elements);
+    std::vector<BigIntElement> int_vec(num_elements);
     for (uint64 i = 0; i < num_elements; i++)
     {
         int_vec[i] = i;
@@ -23,8 +23,8 @@ StackedFilterWrapper::StackedFilterWrapper()
         std::cout << *(int_vec[i].get_value()) << " ";
     }
     
-    std::vector<IntElement> positives(int_vec.begin(), int_vec.begin() + kNumPositives);
-    std::vector<IntElement> negatives(int_vec.begin() + kNumPositives, int_vec.end());
+    std::vector<BigIntElement> positives(int_vec.begin(), int_vec.begin() + kNumPositives);
+    std::vector<BigIntElement> negatives(int_vec.begin() + kNumPositives, int_vec.end());
     //std::vector<double> cdf = uniform_cdf(kNumNegatives);
     std::vector<double> cdf;
     double sum = 0;
@@ -35,7 +35,7 @@ StackedFilterWrapper::StackedFilterWrapper()
     }
 
 
-    filter = new StackedFilter<CQFilterLayer, IntElement>(kBitsPerElement * positives.size(), positives, negatives, cdf);
+    filter = new StackedFilter<CQFilterLayer, BigIntElement>(kBitsPerElement * positives.size(), positives, negatives, cdf);
 }
 
  StackedFilterWrapper::StackedFilterWrapper(
@@ -49,15 +49,15 @@ StackedFilterWrapper::StackedFilterWrapper()
  {
 
 
-     std::vector<int> pos_int_vec(pos, pos + pos_size);
-     std::vector<int> neg_int_vec(neg, neg + neg_size);
+     std::vector<long> pos_int_vec(pos, pos + pos_size);
+     std::vector<long> neg_int_vec(neg, neg + neg_size);
      std::vector<double> cdf_dob_vec(cdf, cdf + cdf_size);
 
-     std::vector<IntElement> pos_ele_vec(pos_int_vec.begin(), pos_int_vec.end());
-     std::vector<IntElement> neg_ele_vec(neg_int_vec.begin(), neg_int_vec.end());
+     std::vector<BigIntElement> pos_ele_vec(pos_int_vec.begin(), pos_int_vec.end());
+     std::vector<BigIntElement> neg_ele_vec(neg_int_vec.begin(), neg_int_vec.end());
 
      
-     filter = new StackedFilter<CQFilterLayer, IntElement>(total_size, pos_ele_vec, neg_ele_vec, cdf_dob_vec);
+     filter = new StackedFilter<CQFilterLayer, BigIntElement>(total_size, pos_ele_vec, neg_ele_vec, cdf_dob_vec);
 
     
  }

@@ -14,7 +14,7 @@
 class StackedFilterWrapper
 {
 
-  StackedFilter<CQFilterLayer, IntElement> *filter;
+  StackedFilter<CQFilterLayer, BigIntElement> *filter;
 
 public:
   StackedFilterWrapper();

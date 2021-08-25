@@ -327,4 +327,7 @@ template
 class StackedFilter<CQFilterLayer, IntElement>;
 
 template
+class StackedFilter<CQFilterLayer, BigIntElement>;
+
+template
 class StackedFilter<CuckooFilterLayer, IntElement>;

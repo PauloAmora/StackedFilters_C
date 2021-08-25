@@ -40,7 +40,7 @@ int main()
         
     
    sFilter filter = sfilter_new_parameters(total_size, positives, (sizeof positives / sizeof positives[0]), negatives, (sizeof negatives / sizeof negatives[0]),cdf,(sizeof cdf / sizeof cdf[0]));
-   int result = filter_LookupElement(filter, 10009);
+   int result = filter_LookupElement(filter, 19);
    printf("Elemento 19 encontrado? 1:sim, 0: nao = %d gabarito: 1\n", result);
 
 
